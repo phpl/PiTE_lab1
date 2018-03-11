@@ -1,10 +1,9 @@
 import datetime
+import logging
 
 from src.logic.ArgParser import ArgParser
 from src.logic.FileCounter import FileCounter
 from src.validators.FileValidator import FileValidator
-from src.validators.FlagsValidator import FlagsValidator
-import logging
 
 
 def parse():
@@ -17,17 +16,24 @@ def parse():
 
 
 def validate():
-    logging.log(logging.INFO, 'Start validating:' + str(datetime.datetime.now()))
-    FileValidator.validate(parsed_arguments['filename'])
-    FlagsValidator.validate(parsed_arguments['flag'])
-    logging.log(logging.INFO, 'End validating:' + str(datetime.datetime.now()))
+    try:
+        logging.log(logging.INFO, 'Start validating:' + str(datetime.datetime.now()))
+        FileValidator.validate(parsed_arguments['filename'])
+        logging.log(logging.INFO, 'End validating:' + str(datetime.datetime.now()))
+    except FileNotFoundError:
+        logging.log(logging.WARN, 'File not found')
+        print("File not found")
 
 
 def count():
-    logging.log(logging.INFO, 'Start counting:' + str(datetime.datetime.now()))
-    file_counter = FileCounter()
-    file_counter.count(**parsed_arguments)
-    logging.log(logging.INFO, 'End counting:' + str(datetime.datetime.now()))
+    try:
+        logging.log(logging.INFO, 'Start counting:' + str(datetime.datetime.now()))
+        file_counter = FileCounter()
+        file_counter.count(**parsed_arguments)
+        logging.log(logging.INFO, 'End counting:' + str(datetime.datetime.now()))
+    except TypeError:
+        logging.log(logging.WARN, 'Flags not found')
+        print("Flags not found")
 
 
 if __name__ == '__main__':
@@ -36,4 +42,3 @@ if __name__ == '__main__':
     parsed_arguments = parse()
     validate()
     count()
-
