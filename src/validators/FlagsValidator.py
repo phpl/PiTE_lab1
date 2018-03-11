@@ -1,4 +1,4 @@
-from src.excpetions.NoFlagsException import NoFlagsException
+from src.exceptions.NoFlagsException import NoFlagsException
 
 
 class FlagsValidator:
