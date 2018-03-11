@@ -1,0 +1,2 @@
+class NoFlagsException(Exception):
+    pass
