@@ -2,7 +2,7 @@ import argparse
 
 
 class ArgParser:
-    result_dictionary = None
+    _result_dictionary = None
 
     def __init__(self):
         self.parser = argparse.ArgumentParser(description='Own implementation of word counter.')
@@ -14,15 +14,15 @@ class ArgParser:
     def parse_arguments_to_dictionary(self):
         arguments = vars(self.parser.parse_args())
 
-        self.result_dictionary = {'filename': arguments['filename']}
+        self._result_dictionary = {'filename': arguments['filename']}
         self._add_flag_to_dictionary(arguments)
 
-        return self.result_dictionary
+        return self._result_dictionary
 
     def _add_flag_to_dictionary(self, arguments):
         for key, value in arguments.items():
             if self._can_add_parameter_to_dictionary(value):
-                self.result_dictionary['flag'] = key
+                self._result_dictionary['flag'] = key
 
     def _can_add_parameter_to_dictionary(self, value):
         return type(value) is bool and value is True

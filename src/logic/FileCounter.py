@@ -1,8 +1,8 @@
 class FileCounter:
-    filename = None
+    _filename = None
 
     def count(self, filename, flag):
-        self.filename = filename
+        self._filename = filename
 
         if flag is 'chars':
             self._count_chars()
@@ -11,10 +11,10 @@ class FileCounter:
         elif flag is 'words':
             self._count_words()
 
-    def _count_lines(self):
+    def _count_chars(self):
         pass
 
-    def _count_chars(self):
+    def _count_lines(self):
         pass
 
     def _count_words(self):
