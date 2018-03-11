@@ -1,3 +1,7 @@
+import string
+from collections import Counter
+
+
 class FileCounter:
     _filename = None
 
@@ -12,10 +16,25 @@ class FileCounter:
             self._count_words()
 
     def _count_chars(self):
-        pass
+        with open(self._filename) as file:
+            letter_count = Counter()
+            alphabet = string.ascii_letters
+
+            for char in file.read():
+                if char in alphabet:
+                    letter_count[char] += 1
+
+            print('Chars: ')
+            print(letter_count)
 
     def _count_lines(self):
-        pass
+        with open(self._filename) as file:
+            lines_count = Counter(file.read().lower().split('\n'))
+            print('Lines: ')
+            print(lines_count)
 
     def _count_words(self):
-        pass
+        with open(self._filename) as file:
+            word_count = Counter(file.read().lower().split())
+            print('Words: ')
+            print(word_count)
